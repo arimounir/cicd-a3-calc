@@ -29,5 +29,15 @@ pipeline {
         always {
             junit 'results/*_result.xml'
         }
+        unstable {
+            mail to: 'arielmogui92@gmail.com',
+                subject: "Unstable Pipeline: ${currentBuild.fullDisplayName}",
+                body: "Something is unstagle with ${env.BUILD_URL}"
+        }
+        failure {
+            mail to: 'arielmogui92@gmail.com',
+                subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                body: "Something is wrong with ${env.BUILD_URL}"
+        }
     }
 }
