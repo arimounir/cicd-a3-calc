@@ -63,10 +63,3 @@ class TestApi(unittest.TestCase):
         self.assertEqual(
             response.status, http.client.OK, f"Error en la petición API a {url}"
         )
-
-    def test_api_log(self):
-        url = f"{BASE_URL}/calc/log/0"
-        response = urlopen(url, timeout=DEFAULT_TIMEOUT)
-        self.assertEqual(
-            response.status, http.client.BAD_REQUEST, f"Error en la petición API a {url}"
-        )

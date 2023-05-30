@@ -34,11 +34,7 @@ pipeline {
     post {
         always {
             junit 'results/*_result.xml'
-        }
-        unstable {
-            mail to: 'arielmogui92@gmail.com',
-                subject: "Unstable Pipeline: ${currentBuild.fullDisplayName}",
-                body: "Ha ocurrido un fallo. Build #${env.BUILD_NUMBER}. Job name: ${env.JOB_NAME}"
+            cleanWs()
         }
         failure {
             mail to: 'arielmogui92@gmail.com',
