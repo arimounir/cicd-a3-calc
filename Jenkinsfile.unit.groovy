@@ -12,6 +12,12 @@ pipeline {
                 sh 'make build'
             }
         }
+        stage('Unit tests') {
+            steps {
+                sh 'make test-unit'
+                archiveArtifacts artifacts: 'results/*.xml'
+            }
+        }
         stage('API tests') {
             steps {
                 sh 'make test-api'
@@ -32,12 +38,12 @@ pipeline {
         unstable {
             mail to: 'arielmogui92@gmail.com',
                 subject: "Unstable Pipeline: ${currentBuild.fullDisplayName}",
-                body: "Something is unstagle with ${env.BUILD_URL}"
+                body: "Ha ocurrido un fallo. Build #${env.BUILD_NUMBER}. Job name: ${env.JOB_NAME}"
         }
         failure {
             mail to: 'arielmogui92@gmail.com',
                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-                body: "Something is wrong with ${env.BUILD_URL}"
+                body: "Ha ocurrido un fallo. Build #${env.BUILD_NUMBER}. Job name: ${env.JOB_NAME}"
         }
     }
 }
